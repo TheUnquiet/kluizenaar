@@ -21,12 +21,12 @@ class Kluizenaar:
         r, k = pos
         if self.board[r][k] != '.': # 'B'
             return False
-        if not r < self.n and k < self.n:
+        if not (0 <= r < self.n and 0 <= k < self.n):
             return False
         for diagonaal_r in [-1, 0, 1]:
             for diagonaal_k in [-1, 0, 1]:
                 nr, nk = r + diagonaal_r, k + diagonaal_k
-                if 0 < nr < self.n and 0 < nk < self.n:
+                if 0 <= nr < self.n and 0 <= nk < self.n:
                     if self.board[nr][nk] == kleur:
                         return False
         return True
@@ -42,3 +42,20 @@ class Kluizenaar:
             self.board[r][k] = kleur # 'B'
         return self
 
+    def mogelijke_zetten(self):
+        zetten = set()
+        kleuren = {'R', 'B', 'Y'}
+        plaatsingen = {'U', 'H', 'V'}
+
+        for kleur in kleuren:
+            for r in range(self.n):
+                for k in range(self.n):
+                    for plaatsing in plaatsingen:
+                        try:
+                            temp = Kluizenaar(self.n)
+                            temp.board = [rij[:] for rij in self.board]
+                            temp.zet(kleur, (r, k), plaatsing)
+                            zetten.add((kleur, (r,k), plaatsing))
+                        except AssertionError:
+                            continue
+        return zetten
