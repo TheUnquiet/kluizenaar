@@ -19,4 +19,4 @@ print(spel.zet('R', (3, 1), 'U').zet('Y', (3, 2), 'H'))
 
 print(spel.zet('R', (1, 3), 'V').zet('B', (2, 0), 'H'))
 
-print(spel.mogelijke_zetten())
+#print(spel.mogelijke_zetten())
